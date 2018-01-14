@@ -1,6 +1,7 @@
 # Makefile for the Monster Game
 
 SRC_DIR=src
+DOC_DIR=Documentation
 
 SRC_FILES=$(wildcard $(SRC_DIR)/*.cpp)
 OBJ_FILES=$(patsubst $(SRC_DIR)/%.cpp, %.o, $(SRC_FILES))
@@ -21,6 +22,11 @@ objs : $(OBJ_FILES)
 %.o : $(SRC_DIR)/%.cpp
 	g++ -c -std=c++11 $<
 
+## docs		: create documentation
+.PHONY : docs
+docs : $(SRC_FILES)
+	doxygen Doxyfile
+
 
 
 ## clean     : remove auto generated files
@@ -28,6 +34,7 @@ objs : $(OBJ_FILES)
 clean :
 	rm -f $(OBJ_FILES)
 	rm -f $(EXE_FILE)
+	rm -r $(DOC_DIR)
 
 ## variables : Print variables
 .PHONY :variables
